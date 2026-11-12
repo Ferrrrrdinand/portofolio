@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" width="1000" height="700">
+  <defs>
+    <linearGradient id="pbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14141a"/>
+      <stop offset="50%" stop-color="#181820"/>
+      <stop offset="100%" stop-color="#0b0b0e"/>
+    </linearGradient>
+    <radialGradient id="pglow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff7138" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#ff7138" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1000" height="700" fill="url(#pbg)"/>
+  <circle cx="500" cy="350" r="280" fill="url(#pglow)"/>
+  <g transform="translate(500, 310)">
+    <rect x="-40" y="-40" width="80" height="80" rx="16" fill="rgba(255, 113, 56, 0.12)" stroke="#ff7138" stroke-width="2"/>
+    <text y="14" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-weight="700" font-style="italic" font-size="44" fill="#ff7138">F</text>
+    <text y="85" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="22" fill="#ffffff" letter-spacing="3">FERNOVA PRODUCT</text>
+    <text y="115" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="14" fill="#989691" letter-spacing="1.5">DIGITAL ASSET · RESOURCE</text>
+  </g>
+</svg>

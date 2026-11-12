@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#121217"/>
+      <stop offset="50%" stop-color="#17171d"/>
+      <stop offset="100%" stop-color="#0a0a0c"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff7138" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ff7138" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="600" cy="400" r="320" fill="url(#glow)"/>
+  <g transform="translate(600, 360)">
+    <text text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-weight="700" font-style="italic" font-size="110" fill="#ff7138" letter-spacing="-2">F</text>
+    <text y="70" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="28" fill="#ffffff" letter-spacing="4">FERNOVA PORTFOLIO</text>
+    <text y="105" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="16" fill="#989691" letter-spacing="2">PLACE YOUR PROJECT IMAGE HERE</text>
+  </g>
+</svg>
