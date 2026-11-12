@@ -386,6 +386,45 @@ h1,h2 { font-family:'Space Grotesk',sans-serif; letter-spacing:-2.8px; }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Bilingual Name Styles */
+.hero-chinese-name {
+  display: block;
+  font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+  font-size: clamp(20px, 3vw, 30px);
+  font-weight: 600;
+  letter-spacing: 5px;
+  color: #a19d98;
+  margin-top: 10px;
+  opacity: 0.9;
+}
+.name-bilingual-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 113, 56, 0.08);
+  border: 1px solid rgba(255, 113, 56, 0.28);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 11px;
+  color: #e5e5e5;
+  margin-top: 14px;
+}
+.name-bilingual-badge span.dot {
+  color: var(--orange);
+}
+.brand-text-col {
+  display: flex;
+  flex-direction: column;
+}
+.brand-chinese-sub {
+  font-size: 8.5px;
+  letter-spacing: 2px;
+  color: var(--orange);
+  line-height: 1;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
 /* Product Card Enhancements */
 .product-card {
   display: flex;

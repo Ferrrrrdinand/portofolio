@@ -109,10 +109,10 @@ function CyberDevScene({ photoUrl }: CodingCardProps) {
       <pointLight position={[-2, -2, 1]} color="#ff7138" intensity={18} distance={6} />
 
       {/* Floating 3D Code Snippets in space */}
-      <FloatingBracket position={[-1.75, 1.4, 0.4]} text="<Developer />" color="#00ffcc" speed={1.2} />
+      <FloatingBracket position={[-1.75, 1.4, 0.4]} text="< 费迪南 · Dev />" color="#00ffcc" speed={1.2} />
       <FloatingBracket position={[1.8, 1.3, 0.3]} text="{ Next.js 14 }" color="#ff7138" speed={1.5} />
       <FloatingBracket position={[-1.85, -1.2, 0.5]} text="npm run dev" color="#a78bfa" speed={1.8} />
-      <FloatingBracket position={[1.75, -1.3, 0.4]} text="git:main ✓" color="#10b981" speed={1.3} />
+      <FloatingBracket position={[1.75, -1.3, 0.4]} text="创作者 · Indo" color="#10b981" speed={1.3} />
 
       <Float speed={1.5} rotationIntensity={0.18} floatIntensity={0.4}>
         <group position={[0, 0, 0]}>
@@ -212,26 +212,30 @@ function CyberDevScene({ photoUrl }: CodingCardProps) {
                     <span style={{ color: "#38bdf8" }}>developer</span> = {"{"}
                   </div>
                   <div style={{ paddingLeft: "12px" }}>
-                    <span style={{ color: "#a1a1aa" }}>name:</span>{" "}
-                    <span style={{ color: "#ff7138" }}>&quot;Ferdinand L.&quot;</span>,
+                    <span style={{ color: "#a1a1aa" }}>name_id:</span>{" "}
+                    <span style={{ color: "#ff7138" }}>&quot;Ferdinand Leandro&quot;</span>,
+                  </div>
+                  <div style={{ paddingLeft: "12px" }}>
+                    <span style={{ color: "#a1a1aa" }}>name_zh:</span>{" "}
+                    <span style={{ color: "#ffd2a6" }}>&quot;费迪南 · 莱安德罗&quot;</span>,
                   </div>
                   <div style={{ paddingLeft: "12px" }}>
                     <span style={{ color: "#a1a1aa" }}>studio:</span>{" "}
-                    <span style={{ color: "#10b981" }}>&quot;FERNOVA&quot;</span>,
+                    <span style={{ color: "#10b981" }}>&quot;FERNOVA (菲诺瓦)&quot;</span>,
                   </div>
                   <div style={{ paddingLeft: "12px" }}>
                     <span style={{ color: "#a1a1aa" }}>skills:</span> [
                     <span style={{ color: "#38bdf8" }}>&quot;Next.js&quot;</span>,{" "}
-                    <span style={{ color: "#a855f7" }}>&quot;3D&quot;</span>,{" "}
-                    <span style={{ color: "#eab308" }}>&quot;TS&quot;</span>],
+                    <span style={{ color: "#a855f7" }}>&quot;3D Web&quot;</span>,{" "}
+                    <span style={{ color: "#eab308" }}>&quot;Creative&quot;</span>],
                   </div>
                   <div style={{ paddingLeft: "12px" }}>
                     <span style={{ color: "#a1a1aa" }}>status:</span>{" "}
-                    <span style={{ color: "#10b981" }}>&quot;ONLINE&quot;</span>
+                    <span style={{ color: "#10b981" }}>&quot;ONLINE (在线)&quot;</span>
                   </div>
                   <div>{"};"}</div>
-                  <div style={{ marginTop: "6px", color: "#00ffcc" }}>
-                    &gt; building future experiences...<span className="cursor-blink">_</span>
+                  <div style={{ marginTop: "4px", color: "#00ffcc", fontSize: "10px" }}>
+                    &gt; halo dunia // 你好世界<span className="cursor-blink">_</span>
                   </div>
                 </div>
 

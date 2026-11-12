@@ -108,9 +108,12 @@ export default function Home() {
       <header className="site-header">
         <a href="#home" className="brand-lockup" aria-label="FERNOVA home">
           <span className="brand-symbol">F</span>
-          <span className="brand-name">FERNOVA<span className="orange">.</span></span>
+          <div className="brand-text-col">
+            <span className="brand-name">FERNOVA<span className="orange">.</span></span>
+            <span className="brand-chinese-sub">费迪南 · 个人作品集</span>
+          </div>
           <span className="brand-divider" />
-          <span className="brand-caption">PERSONAL PORTFOLIO</span>
+          <span className="brand-caption">PORTOFOLIO PRIBADI</span>
         </a>
 
         <button className="mobile-menu" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
@@ -134,38 +137,46 @@ export default function Home() {
       <section className="hero section-shell" id="home">
         <div className="hero-copy">
           <div className="eyebrow">
-            <span className="eyebrow-dot" /> PERSONAL PORTFOLIO <span className="eyebrow-cross">×</span> FERNOVA
+            <span className="eyebrow-dot" /> PORTOFOLIO PRIBADI <span className="eyebrow-cross">×</span> 个人作品集 <span className="eyebrow-cross">×</span> FERNOVA
           </div>
           <h1>
-            Hi, I&apos;m<br />
+            Halo, Saya<br />
             <span className="orange">Ferdinand</span><br />
             Leandro<span className="orange">.</span>
+            <span className="hero-chinese-name">费迪南 · 莱安德罗</span>
           </h1>
+
+          <div className="name-bilingual-badge">
+            <span>🇮🇩 Ferdinand Leandro</span>
+            <span className="dot">•</span>
+            <span>🇨🇳 费迪南 · 莱安德罗</span>
+          </div>
+
           <p className="hero-lead">
-            Multimedia Creator, Developer, and Event Producer building meaningful digital experiences through creativity and technology.
+            Kreator Multimedia, Pengembang Web, dan Produser Acara yang membangun pengalaman digital bermakna melalui perpaduan teknologi dan seni visual.
           </p>
 
           <div className="hero-actions">
             <a className="button" href="#portfolio">
-              <Play size={15} fill="currentColor" /> Explore My Work <ArrowRight size={16} />
+              <Play size={15} fill="currentColor" /> Lihat Karya <ArrowRight size={16} />
             </a>
             <a className="button button-outline" href="#fernova">
-              <span className="mini-f">F</span> Explore FERNOVA
+              <span className="mini-f">F</span> Studio FERNOVA
             </a>
           </div>
 
           <div className="stats">
             <div>
               <strong>{portfolioItems.length}<span>+</span></strong>
-              <small>Selected Projects</small>
+              <small>Proyek Pilihan</small>
             </div>
             <div>
               <strong>{products.length}<span>+</span></strong>
-              <small>Digital Products</small>
+              <small>Produk Digital</small>
             </div>
             <div>
               <strong>04</strong>
-              <small>Creative Disciplines</small>
+              <small>Disiplin Kreatif</small>
             </div>
           </div>
         </div>
@@ -486,14 +497,17 @@ export default function Home() {
       <footer className="footer section-shell">
         <a href="#home" className="brand-lockup">
           <span className="brand-symbol">F</span>
-          <span className="brand-name">FERNOVA<span className="orange">.</span></span>
+          <div className="brand-text-col">
+            <span className="brand-name">FERNOVA<span className="orange">.</span></span>
+            <span className="brand-chinese-sub">费迪南 · 莱安德罗</span>
+          </div>
         </a>
-        <p>Personal portfolio × Digital Creative Studio</p>
+        <p>Portofolio Pribadi (个人主页) × Studio Kreatif Digital</p>
         <div className="social-links">
           <a href="https://instagram.com/" aria-label="Instagram"><Instagram size={17} /></a>
           <a href="mailto:hello@fernova.id" aria-label="Email"><Mail size={17} /></a>
         </div>
-        <small>© {new Date().getFullYear()} Ferdinand Leandro. Built with intention.</small>
+        <small>© {new Date().getFullYear()} Ferdinand Leandro (费迪南 · 莱安德罗). Hak cipta dilindungi undang-undang.</small>
       </footer>
     </main>
   );
