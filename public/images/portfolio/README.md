@@ -14,3 +14,4 @@ Taruh file gambar karya dan proyek Anda di folder ini (`public/images/portfolio/
    "image": "/images/portfolio/project1.jpg"
    ```
 3. Gambar akan langsung otomatis tampil di website!
+

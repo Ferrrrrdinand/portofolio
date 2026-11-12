@@ -36,3 +36,4 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: false, error: "Failed to add portfolio item" }, { status: 500 });
   }
 }
+

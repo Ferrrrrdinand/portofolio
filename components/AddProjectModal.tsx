@@ -231,3 +231,4 @@ export default function AddProjectModal({ isOpen, onClose, onProjectAdded }: Add
     </div>
   );
 }
+

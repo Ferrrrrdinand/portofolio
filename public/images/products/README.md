@@ -14,3 +14,4 @@ Taruh file gambar / mockup produk digital Anda di folder ini (`public/images/pro
    "image": "/images/products/template-fernova.jpg"
    ```
 3. Gambar akan langsung otomatis tampil di bagian katalog / store produk FERNOVA!
+

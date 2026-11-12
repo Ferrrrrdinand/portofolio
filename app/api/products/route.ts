@@ -70,3 +70,4 @@ export async function PUT(req: Request) {
     return NextResponse.json({ success: false, error: "Failed to update product" }, { status: 500 });
   }
 }
+

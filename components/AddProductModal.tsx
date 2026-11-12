@@ -201,3 +201,4 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
     </div>
   );
 }
+
