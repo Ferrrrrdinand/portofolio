@@ -10,3 +10,4 @@ Foto di folder ini ditampilkan secara langsung sebagai **objek 3D interaktif** d
    ```
    *(Bisa juga format `.png` atau `.webp`)*
 3. Foto akan otomatis berubah menjadi objek 3D interaktif di hero section dengan efek pencahayaan studio, refleksi kaca, dan rotasi responsif terhadap kursor mouse!
+
