@@ -201,20 +201,79 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Intro Strip */}
-      <section className="intro-strip section-shell" id="about">
-        <div className="strip-icon">
-          <BriefcaseBusiness />
+      {/* Infinite Animated Cyber Marquee Ticker */}
+      <div className="marquee-container" aria-hidden="true">
+        <div className="marquee-content">
+          {[1, 2].map((k) => (
+            <div key={k} style={{ display: "flex", gap: "36px" }}>
+              <span className="marquee-item"><span className="spark">✦</span> CREATIVE TECHNOLOGIST</span>
+              <span className="marquee-item"><span className="spark">✦</span> 3D MOTION & WEB DEVELOPMENT</span>
+              <span className="marquee-item"><span className="spark">✦</span> MULTIMEDIA PRODUCTION</span>
+              <span className="marquee-item"><span className="spark">✦</span> 费迪南 · 莱安德罗</span>
+              <span className="marquee-item"><span className="spark">✦</span> EVENT SCENOGRAPHY</span>
+              <span className="marquee-item"><span className="spark">✦</span> FERNOVA DIGITAL LABS</span>
+            </div>
+          ))}
         </div>
-        <div>
-          <span className="kicker">A LITTLE ABOUT ME</span>
-          <p>
-            I turn ideas into experiences — combining <b>technology, design, and production</b> to create work that connects with people.
-          </p>
-        </div>
-        <a href="#contact" className="text-link">
-          More about me <ArrowRight size={16} />
-        </a>
+      </div>
+
+      {/* Interactive Creator Dossier & Identity */}
+      <section className="section-shell" id="about" style={{ paddingTop: "70px", paddingBottom: "25px" }}>
+        <motion.div
+          className="creator-dossier"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Holographic Portrait Card */}
+          <div className="dossier-photo-wrap">
+            <img
+              src="/images/avatar/ferdinand.jpg"
+              alt="Ferdinand Leandro"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = "/images/portfolio/placeholder.svg";
+              }}
+            />
+            <div className="dossier-scan-beam" />
+            <div className="dossier-status">
+              <span className="dot pulse-cyan" /> CREATOR // ONLINE
+            </div>
+          </div>
+
+          {/* Dossier Information */}
+          <div className="dossier-info">
+            <div className="dossier-top">
+              <span className="kicker">IDENTITY // 个人档案</span>
+              <h3>Ferdinand Leandro</h3>
+              <div className="dossier-chinese">费迪南 · 莱安德罗</div>
+              <p className="dossier-bio">
+                Memadukan <b>rekayasa teknologi, estetika visual 3D, dan manajemen panggung</b> untuk mengubah ide abstrak menjadi karya digital yang berdaya sentuh tinggi. Bergerak di persimpangan antara kode modern dan produksi kreatif.
+              </p>
+
+              <div className="tech-pills" style={{ marginTop: "14px" }}>
+                {["Next.js 14", "React Three Fiber", "TypeScript", "Tailwind CSS", "DaVinci Resolve", "Blender 3D", "Event Production"].map((t) => (
+                  <span className="tech-pill" key={t}>{t}</span>
+                ))}
+              </div>
+            </div>
+
+            <div className="dossier-grid">
+              <div className="dossier-stat-item">
+                <span>Disiplin Utama</span>
+                <strong>Fullstack & 3D</strong>
+              </div>
+              <div className="dossier-stat-item">
+                <span>Studio Kreatif</span>
+                <strong>FERNOVA.</strong>
+              </div>
+              <div className="dossier-stat-item">
+                <span>Lokasi Operasional</span>
+                <strong>Indonesia 🇮🇩</strong>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </section>
 
       {/* Portfolio Section */}
@@ -288,12 +347,13 @@ export default function Home() {
         <div className="project-grid">
           {filteredProjects.map((project, i) => (
             <motion.article
-              className="project-card"
+              className="project-card shimmer-card"
               key={project.id || project.no}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -8 }}
               viewport={{ once: true }}
-              transition={{ delay: (i % 6) * 0.08 }}
+              transition={{ delay: (i % 6) * 0.08, duration: 0.3 }}
               onClick={() => setSelectedProject(project)}
             >
               <div
@@ -413,8 +473,16 @@ export default function Home() {
 
         {/* Product Grid */}
         <div className="product-grid">
-          {products.map((product) => (
-            <article className="product-card" key={product.id || product.name}>
+          {products.map((product, i) => (
+            <motion.article
+              className="product-card shimmer-card"
+              key={product.id || product.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -8 }}
+              viewport={{ once: true }}
+              transition={{ delay: (i % 6) * 0.08, duration: 0.3 }}
+            >
               <div
                 className="product-image"
                 style={{
@@ -467,7 +535,7 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
 
