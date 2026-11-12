@@ -7,192 +7,297 @@ import {
   ContactShadows,
   MeshTransmissionMaterial,
   Sparkles,
-  Image as DreiImage
+  Image as DreiImage,
+  Html
 } from "@react-three/drei";
 import { Suspense, useRef, useState } from "react";
 import * as THREE from "three";
 
-interface PhotoCardProps {
+interface CodingCardProps {
   photoUrl: string;
 }
 
-function PhotoCard3D({ photoUrl }: PhotoCardProps) {
-  const groupRef = useRef<THREE.Group>(null);
-  const ring1Ref = useRef<THREE.Mesh>(null);
-  const ring2Ref = useRef<THREE.Mesh>(null);
-  const glowRef = useRef<THREE.PointLight>(null);
-
-  useFrame((state) => {
-    const t = state.clock.getElapsedTime();
-
-    if (groupRef.current) {
-      // Smooth responsive 3D tilt tracking cursor
-      groupRef.current.rotation.y = THREE.MathUtils.lerp(
-        groupRef.current.rotation.y,
-        state.pointer.x * 0.45,
-        0.06
-      );
-      groupRef.current.rotation.x = THREE.MathUtils.lerp(
-        groupRef.current.rotation.x,
-        -state.pointer.y * 0.35 + 0.08,
-        0.06
-      );
-    }
-
-    if (ring1Ref.current) {
-      ring1Ref.current.rotation.x = t * 0.22;
-      ring1Ref.current.rotation.y = t * 0.14;
-    }
-
-    if (ring2Ref.current) {
-      ring2Ref.current.rotation.y = -t * 0.28;
-      ring2Ref.current.rotation.z = t * 0.18;
-    }
-
-    if (glowRef.current) {
-      glowRef.current.intensity = 18 + Math.sin(t * 2.5) * 6;
-    }
-  });
-
+// Floating 3D Code Bracket
+function FloatingBracket({
+  position,
+  text,
+  color = "#ff7138",
+  speed = 1.4
+}: {
+  position: [number, number, number];
+  text: string;
+  color?: string;
+  speed?: number;
+}) {
   return (
-    <Float speed={1.6} rotationIntensity={0.2} floatIntensity={0.45}>
-      <group ref={groupRef} scale={1.05}>
-        {/* Glow backlight behind card */}
-        <pointLight
-          ref={glowRef}
-          position={[0, 0, -0.6]}
-          color="#ff7138"
-          distance={6}
-          intensity={20}
-        />
-
-        {/* Outer glowing halo border */}
-        <mesh position={[0, 0, -0.06]}>
-          <planeGeometry args={[2.34, 3.04]} />
-          <meshBasicMaterial color="#ff7138" transparent opacity={0.35} />
-        </mesh>
-
-        {/* Brushed Titanium Card Backplate with 3D Depth */}
-        <mesh position={[0, 0, -0.04]}>
-          <boxGeometry args={[2.26, 2.96, 0.07]} />
-          <meshStandardMaterial
-            color="#141418"
-            metalness={0.92}
-            roughness={0.22}
-          />
-        </mesh>
-
-        {/* Beveled Chamfer Edge - Metallic Frame */}
-        <mesh position={[0, 0, 0.01]}>
-          <boxGeometry args={[2.2, 2.9, 0.04]} />
-          <meshStandardMaterial
-            color="#222228"
-            metalness={0.88}
-            roughness={0.3}
-          />
-        </mesh>
-
-        {/* The 3D Photo Texture Plane with rounded corners */}
-        <group position={[0, 0, 0.045]}>
-          <DreiImage
-            url={photoUrl}
-            scale={[2.08, 2.78]}
-            radius={0.08}
-            transparent
-            toneMapped={false}
-          />
-        </group>
-
-        {/* Front Optical Specular Glass Layer */}
-        <mesh position={[0, 0, 0.08]}>
-          <boxGeometry args={[2.14, 2.84, 0.02]} />
-          <MeshTransmissionMaterial
-            backside={false}
-            samples={6}
-            resolution={256}
-            transmission={0.97}
-            roughness={0.06}
-            thickness={0.25}
-            ior={1.48}
-            chromaticAberration={0.05}
-            color="#ffffff"
-          />
-        </mesh>
-
-        {/* Top 3D ID Badge Chip */}
-        <mesh position={[-0.68, 1.25, 0.12]}>
-          <boxGeometry args={[0.55, 0.12, 0.02]} />
-          <meshStandardMaterial
-            color="#ff7138"
-            emissive="#ff5412"
-            emissiveIntensity={0.8}
-            metalness={0.8}
-            roughness={0.2}
-          />
-        </mesh>
-
-        {/* Hologram Corner Accent Node 1 */}
-        <mesh position={[0.9, 1.26, 0.11]} scale={0.04}>
-          <sphereGeometry args={[1, 16, 16]} />
-          <meshStandardMaterial
-            color="#10b981"
-            emissive="#10b981"
-            emissiveIntensity={2}
-          />
-        </mesh>
-
-        {/* Hologram Corner Accent Node 2 */}
-        <mesh position={[0.9, -1.26, 0.11]} scale={0.04}>
-          <octahedronGeometry args={[1, 0]} />
-          <meshStandardMaterial
-            color="#ff7138"
-            emissive="#ff7138"
-            emissiveIntensity={1.5}
-          />
-        </mesh>
-
-        {/* Precision Orbiting Gimbal Ring 1 - Brushed Titanium */}
-        <mesh ref={ring1Ref}>
-          <torusGeometry args={[1.9, 0.018, 16, 120]} />
-          <meshStandardMaterial
-            color="#2a2a32"
-            metalness={0.95}
-            roughness={0.15}
-          />
-        </mesh>
-
-        {/* Precision Orbiting Gimbal Ring 2 - Anodized Orange */}
-        <mesh ref={ring2Ref} scale={1.12}>
-          <torusGeometry args={[1.88, 0.014, 16, 120]} />
-          <meshStandardMaterial
-            color="#ff7138"
-            emissive="#ff5412"
-            emissiveIntensity={0.9}
-            metalness={0.85}
-            roughness={0.2}
-          />
-        </mesh>
-
-        {/* Orbiting Satellite Particle 1 */}
-        <mesh position={[1.8, 0.4, 0.5]} scale={0.07}>
-          <octahedronGeometry args={[1, 0]} />
-          <meshStandardMaterial color="#ffffff" metalness={0.9} roughness={0.1} />
-        </mesh>
-
-        {/* Orbiting Satellite Particle 2 */}
-        <mesh position={[-1.7, -0.6, 0.6]} scale={0.06}>
-          <sphereGeometry args={[1, 16, 16]} />
-          <meshStandardMaterial
-            color="#ff7138"
-            emissive="#ff7138"
-            emissiveIntensity={1.4}
-          />
-        </mesh>
+    <Float speed={speed} rotationIntensity={0.3} floatIntensity={0.6}>
+      <group position={position}>
+        <Html transform distanceFactor={5} style={{ pointerEvents: "none" }}>
+          <div
+            style={{
+              fontFamily: "'Space Grotesk', monospace",
+              fontSize: "15px",
+              fontWeight: 800,
+              color: color,
+              background: "rgba(10, 10, 14, 0.7)",
+              border: `1px solid ${color}44`,
+              padding: "4px 9px",
+              borderRadius: "6px",
+              boxShadow: `0 0 15px ${color}33`,
+              letterSpacing: "1px",
+              userSelect: "none"
+            }}
+          >
+            {text}
+          </div>
+        </Html>
       </group>
     </Float>
   );
 }
 
+// 3D Cyber Developer Terminal + Photo Card
+function CyberDevScene({ photoUrl }: CodingCardProps) {
+  const rootRef = useRef<THREE.Group>(null);
+  const ring1Ref = useRef<THREE.Mesh>(null);
+  const ring2Ref = useRef<THREE.Mesh>(null);
+  const glowLight = useRef<THREE.PointLight>(null);
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+
+    if (rootRef.current) {
+      // 3D Parallax tilt reacting smoothly to mouse pointer
+      rootRef.current.rotation.y = THREE.MathUtils.lerp(
+        rootRef.current.rotation.y,
+        state.pointer.x * 0.42,
+        0.06
+      );
+      rootRef.current.rotation.x = THREE.MathUtils.lerp(
+        rootRef.current.rotation.x,
+        -state.pointer.y * 0.32 + 0.05,
+        0.06
+      );
+    }
+
+    if (ring1Ref.current) {
+      ring1Ref.current.rotation.x = t * 0.2;
+      ring1Ref.current.rotation.y = t * 0.12;
+    }
+
+    if (ring2Ref.current) {
+      ring2Ref.current.rotation.y = -t * 0.25;
+      ring2Ref.current.rotation.z = t * 0.15;
+    }
+
+    if (glowLight.current) {
+      glowLight.current.intensity = 22 + Math.sin(t * 3) * 6;
+    }
+  });
+
+  return (
+    <group ref={rootRef}>
+      {/* Dynamic Cyber Studio Glow */}
+      <pointLight
+        ref={glowLight}
+        position={[0, 0, -0.8]}
+        color="#ff7138"
+        intensity={22}
+        distance={7}
+      />
+      <pointLight position={[2, 2, 1.5]} color="#00ffcc" intensity={14} distance={6} />
+      <pointLight position={[-2, -2, 1]} color="#ff7138" intensity={18} distance={6} />
+
+      {/* Floating 3D Code Snippets in space */}
+      <FloatingBracket position={[-1.75, 1.4, 0.4]} text="<Developer />" color="#00ffcc" speed={1.2} />
+      <FloatingBracket position={[1.8, 1.3, 0.3]} text="{ Next.js 14 }" color="#ff7138" speed={1.5} />
+      <FloatingBracket position={[-1.85, -1.2, 0.5]} text="npm run dev" color="#a78bfa" speed={1.8} />
+      <FloatingBracket position={[1.75, -1.3, 0.4]} text="git:main ✓" color="#10b981" speed={1.3} />
+
+      <Float speed={1.5} rotationIntensity={0.18} floatIntensity={0.4}>
+        <group position={[0, 0, 0]}>
+          {/* Main 3D Cyber Terminal Window Frame */}
+          {/* Back Chassis */}
+          <mesh position={[0, 0, -0.06]}>
+            <boxGeometry args={[3.3, 2.7, 0.08]} />
+            <meshStandardMaterial
+              color="#0d0e12"
+              metalness={0.9}
+              roughness={0.25}
+            />
+          </mesh>
+
+          {/* Neon Border Rim */}
+          <mesh position={[0, 0, -0.05]}>
+            <planeGeometry args={[3.36, 2.76]} />
+            <meshBasicMaterial color="#ff7138" transparent opacity={0.4} />
+          </mesh>
+
+          {/* Optical Clear Glass Cover */}
+          <mesh position={[0, 0, 0.08]}>
+            <boxGeometry args={[3.24, 2.64, 0.02]} />
+            <MeshTransmissionMaterial
+              backside={false}
+              samples={4}
+              resolution={256}
+              transmission={0.96}
+              roughness={0.08}
+              thickness={0.2}
+              ior={1.46}
+              chromaticAberration={0.04}
+              color="#ffffff"
+            />
+          </mesh>
+
+          {/* 3D Photo on the Left Side of Terminal */}
+          <group position={[-0.92, -0.08, 0.04]}>
+            <DreiImage
+              url={photoUrl}
+              scale={[1.18, 1.95]}
+              radius={0.06}
+              transparent
+              toneMapped={false}
+            />
+            {/* Hologram Scanner Bar */}
+            <mesh position={[0, 0, 0.02]}>
+              <planeGeometry args={[1.18, 0.03]} />
+              <meshBasicMaterial color="#00ffcc" transparent opacity={0.7} />
+            </mesh>
+          </group>
+
+          {/* 3D Interactive Terminal Content on the Right */}
+          <group position={[0.62, -0.06, 0.05]}>
+            <Html transform distanceFactor={3.2} style={{ pointerEvents: "none" }}>
+              <div
+                style={{
+                  width: "270px",
+                  height: "220px",
+                  background: "rgba(10, 11, 15, 0.95)",
+                  border: "1px solid rgba(255, 113, 56, 0.25)",
+                  borderRadius: "8px",
+                  padding: "12px 14px",
+                  fontFamily: "'Space Grotesk', monospace",
+                  fontSize: "11px",
+                  lineHeight: "1.6",
+                  color: "#d4d4d8",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.6)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between"
+                }}
+              >
+                {/* Terminal Header */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    borderBottom: "1px solid rgba(255,255,255,0.08)",
+                    paddingBottom: "8px",
+                    marginBottom: "8px"
+                  }}
+                >
+                  <div style={{ display: "flex", gap: "5px" }}>
+                    <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#ff5f56", display: "inline-block" }} />
+                    <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#ffbd2e", display: "inline-block" }} />
+                    <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#27c93f", display: "inline-block" }} />
+                  </div>
+                  <span style={{ fontSize: "9px", color: "#71717a", letterSpacing: "1px" }}>ferdinand.tsx</span>
+                </div>
+
+                {/* Code Body */}
+                <div style={{ flex: 1, overflow: "hidden", fontSize: "10.5px" }}>
+                  <div>
+                    <span style={{ color: "#f43f5e" }}>const</span>{" "}
+                    <span style={{ color: "#38bdf8" }}>developer</span> = {"{"}
+                  </div>
+                  <div style={{ paddingLeft: "12px" }}>
+                    <span style={{ color: "#a1a1aa" }}>name:</span>{" "}
+                    <span style={{ color: "#ff7138" }}>&quot;Ferdinand L.&quot;</span>,
+                  </div>
+                  <div style={{ paddingLeft: "12px" }}>
+                    <span style={{ color: "#a1a1aa" }}>studio:</span>{" "}
+                    <span style={{ color: "#10b981" }}>&quot;FERNOVA&quot;</span>,
+                  </div>
+                  <div style={{ paddingLeft: "12px" }}>
+                    <span style={{ color: "#a1a1aa" }}>skills:</span> [
+                    <span style={{ color: "#38bdf8" }}>&quot;Next.js&quot;</span>,{" "}
+                    <span style={{ color: "#a855f7" }}>&quot;3D&quot;</span>,{" "}
+                    <span style={{ color: "#eab308" }}>&quot;TS&quot;</span>],
+                  </div>
+                  <div style={{ paddingLeft: "12px" }}>
+                    <span style={{ color: "#a1a1aa" }}>status:</span>{" "}
+                    <span style={{ color: "#10b981" }}>&quot;ONLINE&quot;</span>
+                  </div>
+                  <div>{"};"}</div>
+                  <div style={{ marginTop: "6px", color: "#00ffcc" }}>
+                    &gt; building future experiences...<span className="cursor-blink">_</span>
+                  </div>
+                </div>
+
+                {/* Terminal Footer */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    borderTop: "1px solid rgba(255,255,255,0.06)",
+                    paddingTop: "6px",
+                    marginTop: "6px",
+                    fontSize: "8.5px",
+                    color: "#71717a"
+                  }}
+                >
+                  <span>UTF-8 // TypeScript</span>
+                  <span style={{ color: "#10b981" }}>● 0 errors</span>
+                </div>
+              </div>
+            </Html>
+          </group>
+
+          {/* Top Window Bar Title with cyber dots */}
+          <mesh position={[0, 1.15, 0.05]}>
+            <planeGeometry args={[3.1, 0.18]} />
+            <meshBasicMaterial color="#14151b" />
+          </mesh>
+
+          {/* Precision Orbital Gimbal Rings */}
+          <mesh ref={ring1Ref}>
+            <torusGeometry args={[2.1, 0.016, 16, 120]} />
+            <meshStandardMaterial
+              color="#2a2b34"
+              metalness={0.95}
+              roughness={0.15}
+            />
+          </mesh>
+
+          <mesh ref={ring2Ref} scale={1.08}>
+            <torusGeometry args={[2.08, 0.012, 16, 120]} />
+            <meshStandardMaterial
+              color="#ff7138"
+              emissive="#ff5412"
+              emissiveIntensity={0.8}
+              metalness={0.85}
+              roughness={0.2}
+            />
+          </mesh>
+
+          {/* Cybernetic Accent Satellites */}
+          <mesh position={[2.1, 0.5, 0.4]} scale={0.06}>
+            <octahedronGeometry args={[1, 0]} />
+            <meshStandardMaterial color="#00ffcc" emissive="#00ffcc" emissiveIntensity={1} />
+          </mesh>
+          <mesh position={[-2.0, -0.6, 0.5]} scale={0.05}>
+            <sphereGeometry args={[1, 16, 16]} />
+            <meshStandardMaterial color="#ff7138" emissive="#ff7138" emissiveIntensity={1.2} />
+          </mesh>
+        </group>
+      </Float>
+    </group>
+  );
+}
+
+// 3D Crystal Core (Alternative Mode)
 function CrystalCore() {
   const outerRef = useRef<THREE.Group>(null);
   const innerRef = useRef<THREE.Mesh>(null);
@@ -292,59 +397,58 @@ function CrystalCore() {
 
 interface Scene3DProps {
   photoUrl?: string;
-  initialMode?: "photo" | "sculpture";
+  initialMode?: "coding" | "sculpture";
 }
 
 export default function Scene3D({
   photoUrl = "/images/avatar/ferdinand.jpg",
-  initialMode = "photo"
+  initialMode = "coding"
 }: Scene3DProps) {
-  const [mode, setMode] = useState<"photo" | "sculpture">(initialMode);
+  const [mode, setMode] = useState<"coding" | "sculpture">(initialMode);
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <Canvas
-        camera={{ position: [0, 0, 4.8], fov: 42 }}
+        camera={{ position: [0, 0, 4.6], fov: 44 }}
         dpr={[1, 1.6]}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       >
-        <ambientLight intensity={0.65} />
-        {/* Studio Key Light */}
+        <ambientLight intensity={0.6} />
+        {/* Key & Cyber Lighting */}
         <directionalLight position={[4, 5, 4]} intensity={2.8} color="#ffffff" />
-        <pointLight position={[-3, 2, 3]} color="#ff7138" intensity={28} distance={10} />
-        {/* Rim Light */}
-        <pointLight position={[3, -2, -2]} color="#6eb2ff" intensity={20} distance={9} />
-        <pointLight position={[0, 4, 1]} color="#ffffff" intensity={12} distance={8} />
+        <pointLight position={[-3, 2, 3]} color="#ff7138" intensity={26} distance={10} />
+        <pointLight position={[3, -2, -2]} color="#00ffcc" intensity={22} distance={9} />
+        <pointLight position={[0, 4, 1]} color="#a78bfa" intensity={14} distance={8} />
 
         <Suspense fallback={null}>
-          {mode === "photo" ? (
-            <PhotoCard3D photoUrl={photoUrl} />
+          {mode === "coding" ? (
+            <CyberDevScene photoUrl={photoUrl} />
           ) : (
             <CrystalCore />
           )}
 
-          {/* Floating Atmospheric Sparkles */}
+          {/* Matrix & Cyber Sparkles */}
           <Sparkles
-            count={35}
-            scale={4.8}
+            count={40}
+            scale={5.2}
             size={2.2}
             speed={0.35}
-            color="#ff8b54"
-            opacity={0.65}
+            color="#00ffcc"
+            opacity={0.6}
           />
           <Sparkles
-            count={25}
-            scale={4.0}
-            size={1.6}
+            count={30}
+            scale={4.5}
+            size={1.8}
             speed={0.25}
-            color="#ffffff"
-            opacity={0.45}
+            color="#ff7138"
+            opacity={0.5}
           />
           <Environment preset="city" />
           <ContactShadows
             position={[0, -2.1, 0]}
-            opacity={0.55}
-            scale={5.5}
+            opacity={0.6}
+            scale={6.0}
             blur={2.8}
             far={4}
             color="#050505"
@@ -370,11 +474,11 @@ export default function Scene3D({
       >
         <button
           type="button"
-          onClick={() => setMode("photo")}
+          onClick={() => setMode("coding")}
           style={{
-            background: mode === "photo" ? "var(--orange)" : "transparent",
-            color: mode === "photo" ? "#120b07" : "#aaa",
-            fontWeight: mode === "photo" ? 700 : 500,
+            background: mode === "coding" ? "var(--orange)" : "transparent",
+            color: mode === "coding" ? "#120b07" : "#aaa",
+            fontWeight: mode === "coding" ? 700 : 500,
             fontSize: "10px",
             border: "none",
             borderRadius: "20px",
@@ -383,7 +487,7 @@ export default function Scene3D({
             transition: "all 0.2s"
           }}
         >
-          👤 3D Photo
+          💻 3D Code IDE
         </button>
         <button
           type="button"
